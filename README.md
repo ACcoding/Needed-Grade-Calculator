@@ -5,20 +5,17 @@ root = tk.Tk()
 root.title("GPA Calculator")
 root.geometry("550x700")
 
-# --- Page ---
 page = tk.Frame(root, bg="lightblue", width=1000, height=1000)
 page.grid(row=0, column=0, sticky="nsew")
 
-# --- Table ---
 tableFrame = tk.Frame(page, bg="white", bd=2, relief="solid")
 tableFrame.place(x=150, y=150)
 
 colNames = ["Grade", "Weight"]
-entries = []          # 2D list of Entry widgets
-entryPositions = {}  # dict with "r,c" keys
+entries = []
+entryPositions = {} 
 MAX_ROWS = 5
 
-# column headers
 for c, name in enumerate(colNames):
     colLabel = tk.Label(tableFrame, text=name, font=("Arial", 10, "bold"), bg="white")
     colLabel.grid(row=0, column=c+1, padx=5, pady=5)
@@ -60,7 +57,6 @@ def updateButtons():
         findFinal.place_forget()
         findMidterm.place(x=195, y=y_offset+30)
 
-# --- Add/Remove Row ---
 def addRow():
     for i in range(3):
         r = len(entries)
@@ -105,7 +101,6 @@ def calculateNeededGrade():
         numRows = len(entries)
         targets = [90, 80, 70, 60, 59]
         neededGrades = {}
-
         if numRows == 2:
             totalSoFar = 0
             weightSum = 0
@@ -142,11 +137,10 @@ def calculateNeededGrade():
                     neededGrades[t] = 0
             label_text = "Final Grade Needed:"
 
-        # Build results (rounded up to nearest whole number)
         results = []
         for t in targets:
             val = neededGrades[t]
-            val = math.ceil(val)  # round up to nearest whole number
+            val = math.ceil(val)
             if val <= 0:
                 results.append(f"You cannot get below a {t}.")
                 break
